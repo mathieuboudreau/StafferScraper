@@ -12,5 +12,11 @@ class LoginTwitterTest(unittest.TestCase):
         pass
     
     def test_to_verify_if_bad_key_credentials_throw_exception(self):
-        
         self.assertRaises(twittersession.LoginAuthError, self.twitter.login, self.BAD_KEY, self.BAD_SECRET)
+
+    def test_that_session_instance_variable_is_none_after_login_error(self):
+        try:
+            self.twitter.login(self.BAD_KEY, self.BAD_SECRET)
+        except twittersession.LoginAuthError as e:
+            self.assertIsNone(self.twitter.getSession())
+            
