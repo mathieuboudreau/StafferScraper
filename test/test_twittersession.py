@@ -7,6 +7,7 @@ class LoginTwitterTest(unittest.TestCase):
         self.twitter = twittersession.TwitterSession()
         self.BAD_KEY    = 'badkey'
         self.BAD_SECRET = 'badsecret'
+        self.userID     = 'RosieBarton'
         
     def tearDown(self):
         pass
@@ -19,4 +20,7 @@ class LoginTwitterTest(unittest.TestCase):
             self.twitter.login(self.BAD_KEY, self.BAD_SECRET)
         except twittersession.LoginAuthError as e:
             self.assertIsNone(self.twitter.getSession())
-            
+    
+    def test_getuserid_returns_the_value_that_was_set(self):
+        self.twitter.setUserID(self.userID)
+        self.assertEqual(self.userID, self.twitter.getUserID())

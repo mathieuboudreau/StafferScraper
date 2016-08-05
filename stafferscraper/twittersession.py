@@ -4,7 +4,8 @@ from twython import Twython
 class TwitterSession:
     def __init__(self):
         self._session = None
-
+        self._userID = ''
+        
     def login(self, APP_KEY, APP_SECRET):
         '''Login to Twitter API
         Uses OAuth2 authentication
@@ -17,10 +18,17 @@ class TwitterSession:
         except twython.exceptions.TwythonAuthError:
             self._session = None
             raise LoginAuthError("Bad Twitter API login credentials")
-     
+    
+    # Get/Set methods 
     def getSession(self):
         return self._session
-            
+    
+    def setUserID(self, userID):
+        self._userID = userID
+        
+    def getUserID(self):
+        return self._userID
+
 class LoginAuthError(twython.exceptions.TwythonAuthError):
     '''Throw exception for bad authentication
     Wrapper class for Twython's authentication error
