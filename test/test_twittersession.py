@@ -24,3 +24,4 @@ class LoginTwitterTest(unittest.TestCase):
     def test_getuserid_returns_the_value_that_was_set(self):
         self.twitter.setUserID(self.userID)
         self.assertEqual(self.userID, self.twitter.getUserID())
+        self.twitter.setUserID('')
