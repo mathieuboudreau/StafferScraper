@@ -1,6 +1,6 @@
 import unittest
 from stafferscraper import twittersession
-
+from stafferscraper.io.loadconfig import load_config
 class LoginTwitterTest(unittest.TestCase):
     
     def setUp(self):
@@ -8,6 +8,12 @@ class LoginTwitterTest(unittest.TestCase):
         self.BAD_KEY    = 'badkey'
         self.BAD_SECRET = 'badsecret'
         self.userID     = 'RosieBarton'
+        
+        
+        self.configFileName = 'config.yml'
+        self.config     = load_config(self.configFileName)
+        self.API_KEY    = self.config['API_KEY']
+        self.API_SECRET = self.config['API_SECRET']
         
     def tearDown(self):
         pass
@@ -21,6 +27,9 @@ class LoginTwitterTest(unittest.TestCase):
         except twittersession.LoginAuthError as e:
             self.assertIsNone(self.twitter.getSession())
     
+    def test_to_verify_that_good_key_credentials_dont_throw_exceptions(self):
+        self.twitter.login(self.API_KEY, self.API_SECRET)
+        
     def test_getuserid_returns_the_value_that_was_set(self):
         self.twitter.setUserID(self.userID)
         self.assertEqual(self.userID, self.twitter.getUserID())

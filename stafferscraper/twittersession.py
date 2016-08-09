@@ -6,15 +6,17 @@ class TwitterSession:
         self._session = None
         self._userID = ''
         
-    def login(self, APP_KEY, APP_SECRET):
+    def login(self, API_KEY, API_SECRET):
         '''Login to Twitter API
         Uses OAuth2 authentication
         '''
         
         try:
-            self._session = Twython(APP_KEY, APP_SECRET, oauth_version=2)
-            self._session.verify_credentials() # Should throw exception for bad keys
-            
+            self._session = Twython(API_KEY, API_SECRET, oauth_version=2)
+            self._ACCESS_TOKEN = self._session.obtain_access_token() # Should throw exception for bad keys
+            self._session = Twython(API_KEY, access_token = self._ACCESS_TOKEN) 
+            self._session.show_user(screen_name = 'twitter') # Fetch Twitter's user profile to ensure access token is valid
+
         except twython.exceptions.TwythonAuthError:
             self._session = None
             raise LoginAuthError("Bad Twitter API login credentials")
