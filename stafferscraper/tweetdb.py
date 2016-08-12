@@ -9,7 +9,7 @@ class TweetDB:
         twitterHandle: string, twitter handle of the user-of-interest for this db
         
     -Table Format-
-        (id INTEGER, created_at TIMESTAMP, text VARCHAR(140)
+        (id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140)
     '''
     
     dbFolder = 'databases/' # Default class folder to store databases. 
@@ -31,9 +31,8 @@ class TweetDB:
         self._dbConnection = sqlite3.connect(TweetDB.dbFolder + twitterHandle + TweetDB.dbFileExtension)
         self._dbCursor = self._dbConnection.cursor()
         
-        self._dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER, created_at TIMESTAMP, text VARCHAR(140))""")
+        self._dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140))""")
         self._dbConnection.commit()
-        
         
     def __del__(self):
         self._dbConnection.close()   
