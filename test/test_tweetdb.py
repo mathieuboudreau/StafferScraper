@@ -1,6 +1,7 @@
 import unittest
 import shutil
 import os
+import sqlite3
 from stafferscraper.tweetdb import TweetDB
 
 class TweetDatabaseTest(unittest.TestCase):
@@ -20,6 +21,18 @@ class TweetDatabaseTest(unittest.TestCase):
         else:       
             testDB = TweetDB(self.TwitterHandle)
             assert os.path.isfile('_database_test/_twitter_handle_test' + TweetDB.dbFileExtension)
+            del testDB
+            
+    def test_that_class_created_correct_database_table_columns_and_correct_order(self):
+        testDB = TweetDB(self.TwitterHandle)
+        
+        connection = sqlite3.connect(TweetDB.dbFolder + self.TwitterHandle + TweetDB.dbFileExtension)
+        cursor = connection.execute('select * from UserTimeline') # UserTimeline should be the hardcoded table name
+        columnList = [description[0] for description in cursor.description] # get list of column names
+        
+        self.assertEqual(columnList, ['id', 'created_at', 'text'])
+        
+        del testDB
 
     def tearDown(self):
         if os.path.exists(TweetDatabaseTest.testDatabaseFolder):
