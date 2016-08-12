@@ -6,3 +6,12 @@ __pycache__/
 
 # Configuration files
 config.yml
+
+# Session Files
+databases/
+*.db
+*.sqlite
+*.sqlite3
+
+# Unit test files
+_database_test/
