@@ -8,18 +8,18 @@ class TweetDatabaseTest(unittest.TestCase):
     
     def setUp(self):
         self.oldDatabaseFolder  = TweetDB.dbFolder   # Save class default value
-        TweetDB.dbFolder        = '_database_test/'
+        TweetDB.dbFolder        = TweetDatabaseTest.testDatabaseFolder
         self.TwitterHandle      = '_twitter_handle_test'
         self.sample_row         = (90000014,'2010-04-09T12:53:54','This is a tweet!','2016-08-20T03:12:45')
 
     def test_that_new_databse_folder_and_file_is_created_correctly(self):
         
-        if os.path.exists('_database_test/'):
+        if os.path.exists(TweetDatabaseTest.testDatabaseFolder):
             print('Unit Test: Test database folder must not pre-exist')
             assert False # Test database folder must not pre-exist
         else:       
             testDB = TweetDB(self.TwitterHandle)
-            assert os.path.isfile('_database_test/_twitter_handle_test' + TweetDB.dbFileExtension)
+            assert os.path.isfile(TweetDatabaseTest.testDatabaseFolder + self.TwitterHandle + TweetDB.dbFileExtension)
             del testDB
             
     def test_that_class_created_correct_database_table_columns_and_correct_order(self):
