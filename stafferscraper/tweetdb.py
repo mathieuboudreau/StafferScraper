@@ -31,8 +31,16 @@ class TweetDB:
         self._dbConnection = sqlite3.connect(TweetDB.dbFolder + twitterHandle + TweetDB.dbFileExtension)
         self._dbCursor = self._dbConnection.cursor()
         
-        self._dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140))""")
-        self._dbConnection.commit()
+        self._dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP)""")
+        self.commit()
         
+    def insertRow(self, rowList):
+        # rowList = [id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP]
+        self._dbCursor.execute('INSERT OR IGNORE INTO UserTimeline VALUES (?,?,?,?)', (rowList[0], rowList[1], rowList[2], rowList[3]))
+        self.commit()
+
+    def commit(self):
+        self._dbConnection.commit()
+
     def __del__(self):
         self._dbConnection.close()   
