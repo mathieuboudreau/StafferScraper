@@ -34,7 +34,7 @@ class TweetDB:
         self.__dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP)""")
         self.commit()
         
-    def insertRow(self, rowList):
+    def insertRow(self, rowTuple):
         '''Insert row method
 
         ***Note***
@@ -42,11 +42,11 @@ class TweetDB:
         insertRow() method is called (after each call or in batches after several insertRow calls.
 
         --args--
-            rowList: list in the format [id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP]
+            rowTuple: list in the format (id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP)
         '''
 
-        # rowList = [id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP]
-        self.__dbCursor.execute('INSERT OR IGNORE INTO UserTimeline VALUES (?,?,?,?)', (rowList[0], rowList[1], rowList[2], rowList[3]))
+        # rowTuple = (id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP)
+        self.__dbCursor.execute('INSERT OR IGNORE INTO UserTimeline VALUES (?,?,?,?)', (rowTuple[0], rowTuple[1], rowTuple[2], rowTuple[3]))
 
     def commit(self):
         self.__dbConnection.commit()

@@ -28,8 +28,8 @@ class TweetDatabaseTest(unittest.TestCase):
         connection = sqlite3.connect(TweetDB.dbFolder + self.TwitterHandle + TweetDB.dbFileExtension)
         cursor = connection.execute('select * from UserTimeline') # UserTimeline should be the hardcoded table name
         columnList = [description[0] for description in cursor.description] # get list of column names
-
-        self.assertEqual(columnList, ['id', 'created_at', 'text', 'scrapped_at'])
+        columnTuple = tuple(columnList)
+        self.assertEqual(columnTuple, ('id', 'created_at', 'text', 'scrapped_at'))
 
         del testDB
 
@@ -40,9 +40,9 @@ class TweetDatabaseTest(unittest.TestCase):
         
         connection = sqlite3.connect(TweetDB.dbFolder + self.TwitterHandle + TweetDB.dbFileExtension)
         cursor = connection.execute('SELECT * FROM UserTimeline ORDER BY id ASC LIMIT 1') # UserTimeline should be the hardcoded table name
-        columnList = cursor.fetchone() # get list of column names
+        columnTuple = cursor.fetchone() # get list of column names
 
-        self.assertEqual(columnList, self.sample_row)
+        self.assertEqual(columnTuple, self.sample_row)
         
         del testDB
 
