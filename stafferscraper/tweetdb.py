@@ -22,25 +22,25 @@ class TweetDB:
     dbFileExtension = '.db'     # See previous comment for similar handling
 
     def __init__(self,twitterHandle):
-        self._dbConnection = None
-        self._dbCursor = None
+        self.__dbConnection = None
+        self.__dbCursor = None
         
         if not os.path.exists(TweetDB.dbFolder):
             os.makedirs(TweetDB.dbFolder)
             
-        self._dbConnection = sqlite3.connect(TweetDB.dbFolder + twitterHandle + TweetDB.dbFileExtension)
-        self._dbCursor = self._dbConnection.cursor()
+        self.__dbConnection = sqlite3.connect(TweetDB.dbFolder + twitterHandle + TweetDB.dbFileExtension)
+        self.__dbCursor = self.__dbConnection.cursor()
         
-        self._dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP)""")
+        self.__dbCursor.execute("""CREATE TABLE IF NOT EXISTS UserTimeline(id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP)""")
         self.commit()
         
     def insertRow(self, rowList):
         # rowList = [id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP]
-        self._dbCursor.execute('INSERT OR IGNORE INTO UserTimeline VALUES (?,?,?,?)', (rowList[0], rowList[1], rowList[2], rowList[3]))
+        self.__dbCursor.execute('INSERT OR IGNORE INTO UserTimeline VALUES (?,?,?,?)', (rowList[0], rowList[1], rowList[2], rowList[3]))
         self.commit()
 
     def commit(self):
-        self._dbConnection.commit()
+        self.__dbConnection.commit()
 
     def __del__(self):
-        self._dbConnection.close()   
+        self.__dbConnection.close()

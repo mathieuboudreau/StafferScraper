@@ -4,12 +4,12 @@ from stafferscraper.tweetdb import TweetDB
 
 class TweetDatabaseTest(unittest.TestCase):
     
-    testDatabaseFolder = '_database_test/'
+    testDatabaseFolder = '__database_test/'
     
     def setUp(self):
         self.oldDatabaseFolder  = TweetDB.dbFolder   # Save class default value
         TweetDB.dbFolder        = TweetDatabaseTest.testDatabaseFolder
-        self.TwitterHandle      = '_twitter_handle_test'
+        self.TwitterHandle      = '__twitter_handle_test'
         self.sample_row         = (90000014,'2010-04-09T12:53:54','This is a tweet!','2016-08-20T03:12:45')
 
     def test_that_new_databse_folder_and_file_is_created_correctly(self):
