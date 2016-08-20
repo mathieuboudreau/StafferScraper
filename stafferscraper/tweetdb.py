@@ -35,9 +35,18 @@ class TweetDB:
         self.commit()
         
     def insertRow(self, rowList):
+        '''Insert row method
+
+        ***Note***
+        This method DOES NOT commit to the database automatically. You MUST commit using the commit() method after the
+        insertRow() method is called (after each call or in batches after several insertRow calls.
+
+        --args--
+            rowList: list in the format [id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP]
+        '''
+
         # rowList = [id INTEGER UNIQUE, created_at TIMESTAMP, text VARCHAR(140), scrapped_at TIMESTAMP]
         self.__dbCursor.execute('INSERT OR IGNORE INTO UserTimeline VALUES (?,?,?,?)', (rowList[0], rowList[1], rowList[2], rowList[3]))
-        self.commit()
 
     def commit(self):
         self.__dbConnection.commit()

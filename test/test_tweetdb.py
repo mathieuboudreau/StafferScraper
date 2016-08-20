@@ -36,6 +36,7 @@ class TweetDatabaseTest(unittest.TestCase):
     def test_that_insert_method_commits_changes_to_db_and_db_row_matches_insert_arg(self):
         testDB = TweetDB(self.TwitterHandle)
         testDB.insertRow(self.sample_row)
+        testDB.commit()
         
         connection = sqlite3.connect(TweetDB.dbFolder + self.TwitterHandle + TweetDB.dbFileExtension)
         cursor = connection.execute('SELECT * FROM UserTimeline ORDER BY id ASC LIMIT 1') # UserTimeline should be the hardcoded table name
