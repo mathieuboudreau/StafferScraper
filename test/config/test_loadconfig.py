@@ -1,5 +1,5 @@
 import unittest
-from stafferscraper.io.loadconfig import load_config
+from stafferscraper.config.loadconfig import load_config
 
 class LoadConfigTest(unittest.TestCase):
     

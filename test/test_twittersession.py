@@ -1,7 +1,7 @@
 import warnings
 import unittest
 from stafferscraper import twittersession
-from stafferscraper.io.loadconfig import load_config
+from stafferscraper.config.loadconfig import load_config
 
 def ignore_warnings(test_func):
     def do_test(self, *args, **kwargs):
