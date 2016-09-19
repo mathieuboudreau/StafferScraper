@@ -18,7 +18,7 @@ class LoginTwitterTest(unittest.TestCase):
         self.userID     = 'RosieBarton'
         
         
-        self.configFileName = 'config.yml'
+        self.configFileName = 'StafferScraper_config.yml'
         self.config     = load_config(self.configFileName)
         self.API_KEY    = self.config['API_KEY']
         self.API_SECRET = self.config['API_SECRET']

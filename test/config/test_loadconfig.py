@@ -5,7 +5,7 @@ class LoadConfigTest(unittest.TestCase):
     
     def setUp(self):
         self.nonExistingFileName = '*WRONGF1LENAME.1X5!'
-        self.requiredConfigFile  = 'config.yml'
+        self.requiredConfigFile  = 'StafferScraper_config.yml'
         
     def tearDown(self):
         pass
