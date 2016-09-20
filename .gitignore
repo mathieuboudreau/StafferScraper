@@ -5,7 +5,7 @@
 __pycache__/
 
 # Configuration files
-config.yml
+*config.yml
 
 # Session Files
 databases/
