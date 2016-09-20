@@ -22,6 +22,10 @@ class TwitterSession:
             raise LoginAuthError("Bad Twitter API login credentials")
     
     # Get/Set methods 
+    def getLatestTweet(self):
+        tweet = self.__session.get_user_timeline(screen_name = self.__userID, count=1)
+        return tweet[0]
+
     def getSession(self):
         return self.__session
     

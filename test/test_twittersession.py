@@ -45,3 +45,13 @@ class LoginTwitterTest(unittest.TestCase):
         self.twitter.setUserID(self.userID)
         self.assertEqual(self.userID, self.twitter.getUserID())
         self.twitter.setUserID('')
+
+    @ignore_warnings
+    def test_to_fetch_latest_tweet(self):
+        self.twitter.login(self.API_KEY, self.API_SECRET)
+        self.twitter.setUserID(self.userID)
+
+        latest_tweet = self.twitter.getLatestTweet();
+
+        isinstance(latest_tweet['text'], str)
+        self.assertLessEqual(len(latest_tweet['text']), 140)
